@@ -1,0 +1,28 @@
+{
+    "name": "cnatp/base64-images",
+    "description": "Small library for processing base64 data URI images submitted with an MCE.",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "base64",
+        "images",
+        "data-uri",
+        "mce"
+    ],
+    "homepage": "https://github.com/chilipepper987/Base64Image",
+    "authors": [
+        {
+            "name": "Seth Cohen",
+            "email": "scohen987@gmail.com",
+            "homepage": "http://www.sethcohen.net"
+        }
+    ],
+    "require": {
+        "php": "^5.3 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "cnatp\\": "src/"
+        }
+    }
+}
