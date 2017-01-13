@@ -5,22 +5,16 @@
  * It was written to help convert submitted html data with data-uri images into binary data serverside
  */
 
-namespace chilipepper987\Base64Image;
+namespace cNUT987\Base64Image;
 
 class Base64Image {
 
     private $dataString, $prefix, $data, $imgType;
 
-    public function Base64Image($data = false) {
-        if ($data) {
-            $this->setData($data);
-        }
-    }
-
     public function setData($data) {
-
         $this->prefix = substr($data, 0, 14);
         if ($this->isDataImage()) {
+            //data:image/png;base64,iVBORw0KGgoAAAAN...
             list($type, $data) = explode(';', $data);
             list(, $data) = explode(',', $data);
             list(, $imgType) = explode("/", $type);
@@ -30,7 +24,8 @@ class Base64Image {
     }
 
     /**
-     * return true if the src is a data string, false if otherwise
+     * True if the src is a data string, false if otherwise
+     * @return boolean
      */
     public function isDataImage() {
         return strpos($this->prefix, 'data:image') !== false;
@@ -87,9 +82,10 @@ class Base64Image {
      * @return string The HTML
      */
     public static function convertDataURIs($html, $diskPath, $urlPath) {
+        //add a trailing slash to paths if not already present
         $diskPath = $diskPath . (substr($diskPath, -1) === "/" ? "" : "/");
         $urlPath = $urlPath . (substr($urlPath, -1) === "/" ? "" : "/");
-        $base64Helper = new Base64Image();
+        $base64Helper = new self;
         //new document
         $doc = new DOMDocument();
         $doc->loadHTML($html);
@@ -100,8 +96,7 @@ class Base64Image {
             $base64Helper->setData($src);
             if ($base64Helper->isDataImage()) {
                 //then write out the file and get the path
-                $outFile = uniqid();
-                $filename = $base64Helper->writeToDisk($diskPath, $outFile);
+                $filename = $base64Helper->writeToDisk($diskPath, uniqid());
                 if ($filename) {
                     // swap the src of the dom element with the new file we just wrote
                     $newSrc = $urlPath . $filename;
