@@ -9,7 +9,7 @@ namespace cnatp\Base64Image;
 
 class Base64Image {
 
-    private $dataString, $prefix, $data, $imgType;
+    private $prefix, $data, $imgType;
 
     public function setData($data) {
         $this->prefix = substr($data, 0, 14);
