@@ -5,7 +5,7 @@
  * It was written to help convert submitted html data with data-uri images into binary data serverside
  */
 
-namespace cNUT987\Base64Image;
+namespace cnatp\Base64Image;
 
 class Base64Image {
 
